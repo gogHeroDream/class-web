@@ -1,0 +1,74 @@
+<%- include ('components/header') -%>
+<h4 style="font-weight: 700;">更改头像</h4>
+<form enctype="multipart/form-data" class="avatar-form">
+    <div class="form-group">
+        <label for="exampleInputName1">用户名</label>
+        <input type="text" class="form-control" id="exampleInputName1" disabled <% if(user){ %>value=<%=user %><%  }%> aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputAvatar1">头像</label>
+        <input type="file" class="form-control" id="exampleInputAvatar1">
+    </div>
+    <!-- <%- include('components/nav-flag') %> -->
+    <div class="alert-flag alert alert-success" role="alert">
+
+    </div>
+    <div class="alert-flag alert alert-danger" role="alert">
+
+    </div>
+    <button id="regist-submit" type="submit" class="btn btn-primary">Submit</button>
+</form>
+<!--/row-->
+<script>
+    $(function () {
+        $('#regist-submit').click(function (e) {
+            e.preventDefault()
+            avatar()
+        })
+        // $('#exampleInputName1,#exampleInputPassword1').focus(function () {
+        //     $('.alert-flag').fadeOut()
+        // })
+    })
+    function avatar() {
+        const form = $('form.avatar-form');
+        const formData = new FormData()
+        //  console.log($('#exampleInputAvatar1')[0].files[0])
+        formData.append('name', $('#exampleInputName1').val())
+        formData.append('avatar', $('#exampleInputAvatar1')[0].files[0])
+    
+        $.ajax({
+            url: '/user/avatar',
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(r) {
+                const result = String(r)
+                if (result === '1') {
+                    $('.alert-flag').hide()
+                    $('.alert-success').html('更改头像成功').fadeIn()
+                    setTimeout(() => {
+                        location.href='/'
+                    }, 1000)
+                } else if (result === '-1') {
+                    $('.alert-flag').hide()
+                    $('.alert-danger').html('服务器异常').fadeIn()
+                } else if (result === '-2') {
+                    $('.alert-flag').hide()
+                    $('.alert-danger').html('用户名不存在').fadeIn()
+                } else if (result === '-3') {
+                    $('.alert-flag').hide()
+                    $('.alert-danger').html('上传头像失败').fadeIn()
+                }
+            }
+        })
+        // $.post('/user/avatar', formData, function (result) {
+            
+        // })
+    }
+</script>
+
+<%- include ('components/footer') -%>

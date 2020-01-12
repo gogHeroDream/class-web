@@ -1,0 +1,55 @@
+<%- include ('components/header') -%>
+<h4 style= "font-weight: 700;">注册</h4>
+<form>
+    <div class="form-group">
+        <label for="exampleInputName1">用户名</label>
+        <input type="text" class="form-control" id="exampleInputName1" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">密码</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <!-- <%- include('components/nav-flag') %> -->
+    <div class="alert-flag alert alert-success" role="alert">
+       
+    </div>
+    <div class="alert-flag alert alert-danger" role="alert">
+
+    </div>
+    <button id="regist-submit" type="submit" class="btn btn-primary">Submit</button>
+</form>
+<!--/row-->
+<script>
+    $(function() {
+        $('#regist-submit').click(function (e) {
+            e.preventDefault()
+            doRegist()
+        })
+        $('#exampleInputName1,#exampleInputPassword1').focus(function() {
+            $('.alert-flag').fadeOut()
+        })
+    })
+    function doRegist() {
+        $.post('/regist', {
+            name: $("#exampleInputName1").val(),
+            pwd: $('#exampleInputPassword1').val()
+        }, function (result) {
+            if(result==='1') {
+                $('.alert-flag').hide()
+                $('.alert-success').html('注册成功').fadeIn()
+                 setTimeout(() => {
+                    location.href = '/'
+                }, 1000)
+            } else if(result ==='-1') {
+                $('.alert-flag').hide()
+                $('.alert-danger').html('服务器异常').fadeIn()
+            } else if (result === '-2') {
+                $('.alert-flag').hide()
+                $('.alert-danger').html('用户名已存在').fadeIn()
+            }
+        })
+    }
+</script>
+
+<%- include ('components/footer') -%>

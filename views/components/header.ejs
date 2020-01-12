@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Off Canvas Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="offcanvas.css" rel="stylesheet">
+
+    <script src="/js/jquery.js"></script>
+    <style>
+        .alert-flag{
+            display: none;
+        }
+    </style>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container">
+            <div style="width: 100%;" class="navbar-header">
+                <nav style="width: 100%;" class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="#">班级说说</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li <% if(active=='1') { %> class='active nav-item' <%} else {%> class="nav-item" <%}%>>
+                                <a class="nav-link" href="/">全部说说<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li <% if(active=='2') { %> class='active nav-item' <%} else {%> class="nav-item" <%}%>>
+                                <a class="nav-link" href="#">我的说说</a>
+                            </li>
+                            <li <% if(active=='3') { %> class='active nav-item' <%} else {%> class="nav-item" <%}%>>
+                                <a class="nav-link" href="/user">成员列表</a>
+                            </li>
+                            <li <% if(active=='4') { %> class='active nav-item' <%} else {%> class="nav-item" <%}%>>
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <form class="form-inline">
+                        <% if(user) {%>
+                        <h5 style="margin-right: 10px;">欢迎您！ <%= user%></h5>
+                        <a href="/user/avatar">
+                            <img title="更改头像" style="height: 24px;width: 24px;cursor:pointer;" src="<% if(avatar){%><%=avatar%><% } else {%>/img/default.jpg<%}%>" alt="">
+                        </a>
+                        <% } else { %>
+                        <button onclick="location.href='/regist'" id="regist" style="margin-right: 12px;" class="btn btn-outline-success my-2 my-sm-0"
+                            type="button">注册</button>
+                        <button onclick="location.href='/signin'" class="btn btn-outline-success my-2 my-sm-0" type="button">登录</button>
+                        <%}%>
+                    </form>
+                </nav>
+                <!-- <a class="navbar-brand" href="#">Project name</a> -->
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+
+<div class="container">
